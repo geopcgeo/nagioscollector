@@ -12,7 +12,3 @@ sudo dpkg -i appfirst-x86_64.deb
 echo "command[check_mysql]=/usr/lib/nagios/plugins/check_mysql -u $mysql_username -p $mysql_password" >> /etc/nagios/nrpe.cfg
 echo "command[check_http]=/usr/lib/nagios/plugins/check_http -w 10 -c 15 $url_tocheck" >> /etc/nagios/nrpe.cfg
 sudo /etc/init.d/afcollector restart
-
-
-
-

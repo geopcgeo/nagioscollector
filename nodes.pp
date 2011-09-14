@@ -1,18 +1,17 @@
-
-# The following are the settings variables required for the operations. Assign appropriate values 
+# The following are the settings variables required for the operations. Assign appropriate values
 
 # Nagios web interface password for the user nagiosadmin. Replace "password" with your password.
 
-$mysql_username=nagios
-$mysql_password=nagios
-$url_tocheck=
+$mysql_username="nagios"
+$mysql_password="nagios"
+$url_tocheck="alim.org"
 
 
 
 
 #necessary defaults
-Exec { 
-    path => ["/bin", "/sbin", "/usr/bin", "/usr/sbin"], 
+Exec {
+   path => ["/bin", "/sbin", "/usr/bin", "/usr/sbin"],
 }
 
 # If you want to run this manifest for a specified system, put the system name instead of default. Default means it will run all the systems.
@@ -20,5 +19,5 @@ Exec {
 
 node default {
 
-	include nagioscollector
-	}
+        include nagioscollector
+        }

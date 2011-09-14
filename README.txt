@@ -1,18 +1,14 @@
-This contains generalized puppet script for the installation and configuration of nagios all Linux Operating Systems
+cThis contains generalized puppet script for the installation and configuration of nagios collector on Linux Operating Systems
 *******************************************************************************************
 
 Server Configuration Management Setup
 =====================================
 
 
+
+
 For rpm package: (redhat,centos, etc)
 -------------------------------------
-#For latest yum repositry we are doing the following steps:
-
-su -c 'rpm -Uvh http://download.fedora.redhat.com/pub/epel/5/i386/epel-release-5-4.noarch.rpm'
-wget http://rpms.famillecollet.com/enterprise/remi-release-5.rpm
-rpm -Uvh remi-release-5*.rpm
-sed -i 's/enabled=0/enabled=1/' /etc/yum.repos.d/remi.repo
 
 #Installing git and puppet
 
@@ -26,18 +22,18 @@ vi .ssh/id_rsa.pub
 
 Paste the ssh key into the GitHub account you'll be using
 
-#Installation of nagios.
+git clone git@github.com:geopcgeo/nagioscollector.git
 
 
-sudo git clone git@github.com:geopcgeo/Nagios.git
+#Installation of nagios colletcor.
 
-mkdir /etc/puppet/modules
+ln -s /$HOME/nagioscollector /etc/puppet/modules
 mkdir /etc/puppet/manifests
-cp -Rv Nagios/* /etc/puppet/modules
-chmod -R 755 /etc/puppet/modules/app/scripts
 cp /etc/puppet/modules/nodes.pp /etc/puppet/manifests/
+sudo chmod 755 /etc/puppet/modules/nagioscollector/scripts/*
 puppet -v /etc/puppet/manifests/nodes.pp
-init 6
+
+
 
 
 For debian package: (ubuntu, debian etc)
@@ -57,13 +53,12 @@ sudo vi .ssh/id_rsa.pub
 
 # Paste the ssh key into the GitHub account you'll be using
 
-sudo git clone git@github.com:geopcgeo/Nagios.git
+sudo git clone git@github.com:geopcgeo/nagioscollector.git
 
-# Installation of nagios.
+# Installation of nagios colletcor.
 
-
-sudo ln -s /$HOME/Nagios /etc/puppet/modules
+sudo ln -s /$HOME/nagioscollector /etc/puppet/modules
 sudo cp /etc/puppet/modules/nodes.pp /etc/puppet/manifests/
-sudo chmod 755 /etc/puppet/modules/nagios/scripts/*
+sudo chmod 755 /etc/puppet/modules/nagioscollector/scripts/*
 sudo puppet -v /etc/puppet/manifests/nodes.pp
 
