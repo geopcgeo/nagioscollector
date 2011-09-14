@@ -1,5 +1,5 @@
 
-class nagioscollector{
+class nagioscollector	{
 	case $operatingsystem  {
              
 			 debian:
@@ -29,13 +29,5 @@ class nagioscollector{
 				command =>"/etc/puppet/modules/nagioscollector/scripts/centos_nagioscollector.sh $mysql_username $mysql_password $url_tocheck ",
 					}
 				}
+			}
 	}
-
-
-
-
-
-
-
-
-
