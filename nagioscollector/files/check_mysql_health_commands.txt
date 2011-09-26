@@ -1,0 +1,48 @@
+# connection-time 	 Measures how long connection and login (Time to connect to the server)
+command[check_mysql_health_ connection-time]=/usr/local/nagios/libexec/check_mysql_health --hostname localhost --port 3306 --username nagios --password nagios --mode connection-time --warning 1 --critical 5
+# uptime 	 The time since the start DB (DB detects crash + restart) (Time the server is running)
+command[check_mysql_health_ uptime]=/usr/local/nagios/libexec/check_mysql_health --hostname localhost --port 3306 --username nagios --password nagios --mode uptime
+# threads-connected 	 Number of open connections (Number of currently open connections)
+command[check_mysql_health_ threads-connected]=/usr/local/nagios/libexec/check_mysql_health --hostname localhost --port 3306 --username nagios --password nagios --mode threads-connected --warning 10 --critical 20
+# thread cache hit rate 	 In the thread cache hit rate (Hit rate of the thread-cache)
+command[check_mysql_health_ threadcache-hitrate]=/usr/local/nagios/libexec/check_mysql_health --hostname localhost --port 3306 --username nagios --password nagios --mode threadcache-hitrate 
+# threads-created (Number of threads created per sec)
+command[check_mysql_health_ threads-created]=/usr/local/nagios/libexec/check_mysql_health --hostname localhost --port 3306 --username nagios --password nagios --mode threads-created
+# threads-running (Number of currently running threads)
+command[check_mysql_health_ threads-running]=/usr/local/nagios/libexec/check_mysql_health --hostname localhost --port 3306 --username nagios --password nagios --mode threads-running
+# threads-cached (Number of currently cached threads)
+command[check_mysql_health_ threads-cached]=/usr/local/nagios/libexec/check_mysql_health --hostname localhost --port 3306 --username nagios --password nagios --mode threads-cached
+# connects-aborted (Number of aborted connections per sec)
+command[check_mysql_health_ connects-aborted]=/usr/local/nagios/libexec/check_mysql_health --hostname localhost --port 3306 --username nagios --password nagios --mode connects-aborted
+# clients-aborted (Number of aborted connections (because the client died) per sec)
+command[check_mysql_health_ clients-aborted]=/usr/local/nagios/libexec/check_mysql_health --hostname localhost --port 3306 --username nagios --password nagios --mode clients-aborted
+# qcache-hitrate (Query cache hitrate)
+command[check_mysql_health_ qcache-hitrate]=/usr/local/nagios/libexec/check_mysql_health --hostname localhost --port 3306 --username nagios --password nagios --mode qcache-hitrate
+# qcache-lowmem-prunes (Query cache entries pruned because of low memory)
+command[check_mysql_health_ qcache-lowmem-prunes]=/usr/local/nagios/libexec/check_mysql_health --hostname localhost --port 3306 --username nagios --password nagios --mode qcache-lowmem-prunes
+# keycache-hitrate (MyISAM key cache hitrate)
+command[check_mysql_health_ keycache-hitrate]=/usr/local/nagios/libexec/check_mysql_health --hostname localhost --port 3306 --username nagios --password nagios --mode keycache-hitrate
+# bufferpool-hitrate (InnoDB buffer pool hitrate)
+command[check_mysql_health_ bufferpool-hitrate]=/usr/local/nagios/libexec/check_mysql_health --hostname localhost --port 3306 --username nagios --password nagios --mode bufferpool-hitrate
+# bufferpool-wait-free (InnoDB buffer pool waits for clean page available)
+command[check_mysql_health_ bufferpool-wait-free]=/usr/local/nagios/libexec/check_mysql_health --hostname localhost --port 3306 --username nagios --password nagios --mode bufferpool-wait-free
+# log-waits (InnoDB log waits because of a too small log buffer)
+command[check_mysql_health_log-waits]=/usr/local/nagios/libexec/check_mysql_health --hostname localhost --port 3306 --username nagios --password nagios --mode log-waits
+# tablecache-hitrate (Table cache hitrate)
+command[check_mysql_health_tablecache-hitrate]=/usr/local/nagios/libexec/check_mysql_health --hostname localhost --port 3306 --username nagios --password nagios --mode tablecache-hitrate
+# table-lock-contention (Table lock contention)
+command[check_mysql_health_ table-lock-contention]=/usr/local/nagios/libexec/check_mysql_health --hostname localhost --port 3306 --username nagios --password nagios --mode table-lock-contention
+# index-usage (Usage of indices)
+command[check_mysql_health_ index-usage]=/usr/local/nagios/libexec/check_mysql_health --hostname localhost --port 3306 --username nagios --password nagios --mode index-usage
+# tmp-disk-tables (Percent of temp tables created on disk)
+command[check_mysql_health_ tmp-disk-tables]=/usr/local/nagios/libexec/check_mysql_health --hostname localhost --port 3306 --username nagios --password nagios --mode tmp-disk-tables
+# table-fragmentation (Show tables which should be optimized)
+command[check_mysql_health_ table-fragmentation]=/usr/local/nagios/libexec/check_mysql_health --hostname localhost --port 3306 --username nagios --password nagios --mode table-fragmentation
+# open-files (Percent of opened files)
+command[check_mysql_health_ open-files]=/usr/local/nagios/libexec/check_mysql_health --hostname localhost --port 3306 --username nagios --password nagios --mode open-files
+# slow-queries (Slow queries)
+command[check_mysql_health_ slow-queries]=/usr/local/nagios/libexec/check_mysql_health --hostname localhost --port 3306 --username nagios --password nagios --mode slow-queries
+# long-running-procs (long running processes)
+command[check_mysql_health_ long-running-procs]=/usr/local/nagios/libexec/check_mysql_health --hostname localhost --port 3306 --username nagios --password nagios --mode long-running-procs
+# sql (any sql command returning a single number)
+command[check_mysql_health_ sql]=/usr/local/nagios/libexec/check_mysql_health --hostname localhost --port 3306 --username nagios --password nagios --mode sql

@@ -1,5 +1,5 @@
 
-class nagioscollector	{
+class nagioscollector::install	{
 	case $operatingsystem  {
              
 			 debian:
@@ -7,8 +7,9 @@ class nagioscollector	{
 				package { [ "nagios-nrpe-server" ]:
                 ensure => present,
 					}
-				exec { "password":
-				command =>"/etc/puppet/modules/nagioscollector/scripts/ubuntu_nagioscollector.sh $mysql_username $mysql_password $url_tocheck ",
+				exec { "nagioscollector-installation":
+				command =>"/etc/puppet/modules/nagioscollector/scripts/ubuntu_nagioscollector.sh $collector_url",
+				logoutput => true,
 					}
 				}
 			ubuntu:
@@ -16,8 +17,9 @@ class nagioscollector	{
 				package { [ "nagios-nrpe-server" ]:
                 ensure => present,
 					}
-				exec { "password":
-				command =>"/etc/puppet/modules/nagioscollector/scripts/ubuntu_nagioscollector.sh $mysql_username $mysql_password $url_tocheck ",
+				exec { "nagioscollector-installation":
+				command =>"/etc/puppet/modules/nagioscollector/scripts/ubuntu_nagioscollector.sh $collector_url",
+				logoutput => true,
 					}
 				}
 			default:				
@@ -25,9 +27,48 @@ class nagioscollector	{
 				service { [ "nrpe" ]:
                 ensure => present,
 					}
-				exec { "password":
-				command =>"/etc/puppet/modules/nagioscollector/scripts/centos_nagioscollector.sh $mysql_username $mysql_password $url_tocheck ",
+				exec { "nagioscollector-installation":
+				command =>"/etc/puppet/modules/nagioscollector/scripts/centos_nagioscollector.sh $collector_url",
+				logoutput => true,
 					}
 				}
 			}
-	}
+		}
+
+class nagioscollector::checkhttp {
+			exec { "adding-check_http":
+			command =>"/etc/puppet/modules/app/scripts/check_http.sh $url_tocheck",
+			logoutput => true,
+			require => Class ["nagioscollector::install"],
+			}
+		}
+
+class nagioscollector::checkmysqlhealth {
+			exec { "adding-check_mysql_health":
+			command =>"/etc/puppet/modules/app/scripts/check_mysql_health.sh $mysql_username $mysql_password",
+			logoutput => true,
+			require => Class ["nagioscollector::install"],
+			}
+		}
+class nagioscollector::checkapache2 {
+			exec { "adding-check_apache2":
+			command =>"/etc/puppet/modules/app/scripts/check_apache2.sh",
+			logoutput => true,
+			require => Class ["nagioscollector::install"],
+			}
+		}
+class nagioscollector::checktotalapacheconn {
+			exec { "adding-check_total_apache_conn":
+			command =>"/etc/puppet/modules/app/scripts/check_total_apache_conn.sh",
+			logoutput => true,
+			require => Class ["nagioscollector::install"],
+			}
+		}		
+		
+		
+		
+		
+			
+class nagioscollector {
+		include nagioscollector::install, nagioscollector::checkhttp, nagioscollector::checkmysqlhealth, nagioscollector::checkapache2, nagioscollector::checktotalapacheconn
+		}

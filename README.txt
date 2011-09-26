@@ -33,6 +33,13 @@ cp /etc/puppet/modules/nodes.pp /etc/puppet/manifests/
 sudo chmod 755 /etc/puppet/modules/nagioscollector/scripts/*
 puppet -v /etc/puppet/manifests/nodes.pp
 
+# Post Installation step need to be done in AppFirst Interface
+
+Go to the Collectors page (under the Administration tab) and on the particular server edit the config file.
+Change "/usr/local/nagios/etc/nrpe.cfg" to  "/etc/nagios/nrpe.cfg"
+Save and restart collector in shell with command 
+sudo /etc/init.d/afcollector restart
+
 
 
 
@@ -61,4 +68,11 @@ sudo ln -s /$HOME/nagioscollector /etc/puppet/modules
 sudo cp /etc/puppet/modules/nodes.pp /etc/puppet/manifests/
 sudo chmod 755 /etc/puppet/modules/nagioscollector/scripts/*
 sudo puppet -v /etc/puppet/manifests/nodes.pp
+
+# Post Installation step need to be done in AppFirst Interface
+
+Go to the Collectors page (under the Administration tab) and on the particular server edit the config file.
+Change "/usr/local/nagios/etc/nrpe.cfg" to  "/etc/nagios/nrpe.cfg"
+Save and restart collector in shell with command 
+sudo /etc/init.d/afcollector restart
 

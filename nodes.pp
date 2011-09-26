@@ -2,6 +2,7 @@
 
 # Nagios web interface password for the user nagiosadmin. Replace "password" with your password.
 
+$collector_url=""
 $mysql_username="nagios"
 $mysql_password="nagios"
 $url_tocheck="alim.org"

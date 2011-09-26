@@ -1,0 +1,2 @@
+#Script developed by Geo Citrus Informatics
+netstat -alntp | grep :80 | wc -l
