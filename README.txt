@@ -27,6 +27,9 @@ git clone git@github.com:geopcgeo/nagioscollector.git
 
 #Installation of nagios colletcor.
 
+Go to the Collectors page (under the Administration tab) and cleick on "Instructions" near Add Collectors.
+Follow the instructions and install the collector package.
+
 ln -s /$HOME/nagioscollector /etc/puppet/modules
 mkdir /etc/puppet/manifests
 cp /etc/puppet/modules/nodes.pp /etc/puppet/manifests/
@@ -63,6 +66,9 @@ sudo vi .ssh/id_rsa.pub
 sudo git clone git@github.com:geopcgeo/nagioscollector.git
 
 # Installation of nagios colletcor.
+
+Go to the Collectors page (under the Administration tab) and cleick on "Instructions" near Add Collectors.
+Follow the instructions and install the collector package.
 
 sudo ln -s /$HOME/nagioscollector /etc/puppet/modules
 sudo cp /etc/puppet/modules/nodes.pp /etc/puppet/manifests/
