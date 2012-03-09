@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:sec="http://www.springframework.org/schema/security"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+       http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-3.0.xsd
+	http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.5.xsd">
+
+<bean id="authenticationManager"
+			class="org.jasig.cas.authentication.AuthenticationManagerImpl">
+<property name="authenticationMetaDataPopulators">
+<list>
+<bean
+class="org.jasig.cas3.extensions.clearpass.CacheCredentialsMetaDataPopulator">
+<constructor-arg index="0" ref="credentialsCache" />
+</bean>
+</list>
+</property>
+
+	<property name="credentialsToPrincipalResolvers">
+				<list>
+					<bean class="org.jasig.cas.authentication.principal.CredentialsToLDAPAttributePrincipalResolver">
+      <!-- The Principal resolver form the credentials -->
+      <property name="credentialsToPrincipalResolver">
+          <bean class="org.jasig.cas.authentication.principal.UsernamePasswordCredentialsToPrincipalResolver" />
+      </property>
+      <!-- The query made to find the Principal ID. "%u" will be replaced by the resolved Principal -->
+      <property name="filter" value="(uid=%u)" />
+      <!-- The attribute used to define the new Principal ID -->
+      <property name="principalAttributeName" value="uid" />
+      <property name="searchBase" value="ou=users,ou=system" />
+      <property name="contextSource" ref="contextSource" />
+      <property name="attributeRepository">
+          <ref bean="attributeRepository" />
+      </property>
+  </bean>
+					<bean
+						class="org.jasig.cas.authentication.principal.HttpBasedServiceCredentialsToPrincipalResolver" />
+				</list>
+			</property>
+			<property name="authenticationHandlers">
+				<list>
+					<bean class="org.jasig.cas.authentication.handler.support.HttpBasedServiceCredentialsAuthenticationHandler"
+						p:httpClient-ref="httpClient" />
+					<bean
+						class="org.jasig.cas.adaptors.ldap.BindLdapAuthenticationHandler">
+						<property name="filter" value="uid=%u" />
+						<property name="searchBase" value="ou=users,ou=system" />
+						<property name="contextSource" ref="contextSource" />
+					</bean>
+				</list>
+			</property>
+		</bean>
+
+<bean id="contextSource" class="org.springframework.ldap.core.support.LdapContextSource">
+<property name="pooled" value="false"/>            
+ <property name="urls">
+            <list>
+                <value>ldap://192.168.1.59:10389/</value>
+            </list>
+        </property>
+        <property name="userDn" value="uid=admin,ou=system"/>
+        <property name="password" value="secret"/>
+        <property name="baseEnvironmentProperties">
+            <map>
+                <entry>
+                    <key>
+                        <value>java.naming.security.authentication</value>
+                    </key>
+                    <value>simple</value>
+                </entry>
+            </map>
+        </property>
+                </bean>
+
+<bean id="attributeRepository" class="org.jasig.services.persondir.support.ldap.LdapPersonAttributeAndRoleDao">
+      <property name="contextSource" ref="contextSource" />
+      <property name="baseDN" value="ou=users,ou=system" />
+      <property name="requireAllQueryAttributes" value="true" />
+      <!-- Attribute mapping between principal (key) and LDAP (value) names used to perform the LDAP search.
+          By default, multiple search criteria are ANDed together.  Set the queryType property to change to OR. -->
+      <property name="queryAttributeMapping">
+          <map>
+              <entry key="username" value="uid" />
+          </map>
+      </property>
+      <property name="resultAttributeMapping">
+          <map>
+              <!-- Mapping beetween LDAP entry attributes (key) and Principal's (value) -->
+              <entry key="mail" value="mail" />
+		<entry key="telephoneNumber" value="telephoneNumber" />
+           	 <entry key="authorities" value="authorities" />
+		<entry key="gender" value="gender" />
+		<entry key="(skill={0})" value="currentrole" />
+		<entry key="skill" value="roleskill" />
+		<entry key="userPassword" value="password" />
+		<entry key="(uniqueMember={0})" value="rolemapped" />
+		<entry key="employeeType" value="role" />
+
+	  </map>
+      </property>
+      <property name="ldapAuthoritiesPopulator" ref="ldapAuthoritiesPopulator" />
+  </bean>
+<bean id="ldapAuthoritiesPopulator" class="org.springframework.security.ldap.userdetails.DefaultLdapAuthoritiesPopulator">
+      <constructor-arg ref="contextSource"/>
+      <constructor-arg value="ou=users,ou=system"/>
+      <property name="groupRoleAttribute" value="cn"/>
+      <property name="groupSearchFilter" value="(uniqueMember={0})" />
+  </bean>
+
+			
+		<sec:user-service id="userDetailsService">
+        <sec:user name="admin" password="grant2011" authorities="ROLE_ADMIN" />
+		</sec:user-service>
+<bean id="serviceRegistryDao" class="org.jasig.cas.services.InMemoryServiceRegistryDaoImpl" />
+<bean id="auditTrailManager" class="com.github.inspektr.audit.support.Slf4jLoggingAuditTrailManager" />
+</beans>
