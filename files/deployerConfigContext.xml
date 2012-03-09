@@ -58,7 +58,7 @@ class="org.jasig.cas3.extensions.clearpass.CacheCredentialsMetaDataPopulator">
 <property name="pooled" value="false"/>            
  <property name="urls">
             <list>
-                <value>ldap://192.168.1.59:10389/</value>
+                <value>ldap://netspective.com:10389/</value>
             </list>
         </property>
         <property name="userDn" value="uid=admin,ou=system"/>
@@ -89,15 +89,11 @@ class="org.jasig.cas3.extensions.clearpass.CacheCredentialsMetaDataPopulator">
       <property name="resultAttributeMapping">
           <map>
               <!-- Mapping beetween LDAP entry attributes (key) and Principal's (value) -->
-              <entry key="mail" value="mail" />
-		<entry key="telephoneNumber" value="telephoneNumber" />
-           	 <entry key="authorities" value="authorities" />
-		<entry key="gender" value="gender" />
-		<entry key="(skill={0})" value="currentrole" />
-		<entry key="skill" value="roleskill" />
-		<entry key="userPassword" value="password" />
-		<entry key="(uniqueMember={0})" value="rolemapped" />
-		<entry key="employeeType" value="role" />
+              <entry key="mail" value="Mail" />
+		<entry key="telephoneNumber" value="Telephone" />
+        <entry key="authorities" value="authorities" />
+		<entry key="gender" value="Gender" />
+		<entry key="employeeType" value="Role" />
 
 	  </map>
       </property>
