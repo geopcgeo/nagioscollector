@@ -6,7 +6,7 @@ Server Configuration Management Setup
 
 
 
-
+rrrr
 For rpm package: (redhat,centos, etc)
 -------------------------------------
 
