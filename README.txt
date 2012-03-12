@@ -15,7 +15,7 @@ For rpm package: (redhat,centos, etc)
 yum install git-core puppet
 
 #Configuring ssh public key.
-
+fff
 cd $HOME
 ssh-keygen -t rsa 
 vi .ssh/id_rsa.pub
