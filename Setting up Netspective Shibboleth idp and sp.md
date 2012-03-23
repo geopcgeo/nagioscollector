@@ -4,7 +4,7 @@
 
 - [Setting a CentOS Base Server](../System Operations \(SysOps\)/Setting a Base CentOS Server.md)
 - [Setting up Apache Httpd Server](../System Operations \(SysOps\)/Setting up Apache Httpd Server.md)
-- [Setup Java](../System Operations (SysOps)/Setting up Java.md)
+- [Setup Java](../System Operations \(SysOps\)/Setting up Java.md)
 - [Setup Apache Tomcat](../System Operations \(SysOps\)/Setting up Apache Tomcat.md)
 - [Setup ApacheDS](../System Operations \(SysOps\)/Setting up ApacheDS.md)
 
@@ -52,25 +52,25 @@ Edit the TOMCAT_HOME/bin/catalina.sh file and add the JAVA_OPTS variable as:
 
 Supporting SOAP Endpoints: During certain operations like Attribute Query, Artifact Resolution, and Logout the Shibboleth IdP and SP may communicate directly, as opposed to sending messages via the user’s browser. In order to support these request the IdP needs an additional port (called a Connector within the Tomcat configuration), distinct from the one used by the user (because they have different, mutually exclusive, security requirements). To support SOAP endpoints perform the following steps:
 
-1. Download tomcat6-dta-ssl-1.0.0.jar in to TOMCAT_HOME/lib/ folder.
+Download tomcat6-dta-ssl-1.0.0.jar in to TOMCAT_HOME/lib/ folder.
 
 	cd $TOMCAT_HOME/lib/
-	
 	wget http://shibboleth.internet2.edu/downloads/maven2/edu/internet2/middleware/security/tomcat6/tomcat6-dta-ssl/1.0.0/tomcat6-dta-ssl-1.0.0.jar
 
-1.	Include endorsed jar files at the time tomcat loading. Open $TOMCAT_HOME/conf/catalina.properties file and include ${catalina.home}/endorsed/*.jar in common.loader as follows:
+Include endorsed jar files at the time tomcat loading. Open $TOMCAT_HOME/conf/catalina.properties file and include ${catalina.home}/endorsed/*.jar in common.loader as follows:
 
 	common.loader=${catalina.home}/lib,${catalina.home}/lib/*.jar,${catalina.home}/endorsed/*.jar
 
 
 
-1. Edd the following connector definition to Tomcat’s TOMCAT_HOME/conf/server.xml file:
+Edd the following connector definition to Tomcat’s TOMCAT_HOME/conf/server.xml file:
 
 				<Connector port="8443" protocol="HTTP/1.1" SSLEnabled="true"
                	maxThreads="150" scheme="https" secure="true"
               	clientAuth="false" sslProtocol="TLS"
                 keystoreFile="/opt/shibboleth-idp/credentials/idp.jks"
 				keystorePass="password" />
+
 Note: In the keystorePass provide the password that you entered during shibboleth-idp installation.
 
 Deploy the IdP WAR file, located in IDP_HOME/war/ using a context deployment fragment:
