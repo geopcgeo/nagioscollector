@@ -96,8 +96,23 @@ Configure mod_ssl by adding the following lines near the end, just before the cl
 	JkMount /shibboleth ajp13
 	JkMount /shibboleth/* ajp13
 
+Now in same /etc/httpd/conf.d/ssl.conf file, edit ServerName
 
-Restart tomcat and apache
+	ServerName idm.netspective.com:443
+
+
+Then we need to comment out the 443 port in tomcat. 
+
+vi $TOMCAT_HOME/conf/server.xml
+
+	<!--
+	<Connector port="443" protocol="HTTP/1.1" SSLEnabled="true"
+	maxThreads="150" scheme="https" secure="true" clientAuth="false"
+	sslProtocol="TLS" keystoreFile="/opt/keystore" keystorePass="password" />
+	-->
+
+
+Now restart tomcat and apache
 
 	catalina.sh stop
 	catalina.sh	start
