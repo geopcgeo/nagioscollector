@@ -1,5 +1,5 @@
-cThis contains generalized puppet script for the installation and configuration of nagios collector on Linux Operating Systems
-*******************************************************************************************
+This contains generalized puppet script for the installation and configuration of nagios collector on Linux Operating Systems
+********************************************************************************************************
 
 Server Configuration Management Setup
 =====================================
